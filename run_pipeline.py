@@ -310,9 +310,9 @@ def main() -> None:
         glue.reset_job_bookmark(JobName=C.JOB_NAME)
         log("job bookmark reset: the next run reprocesses every partition")
 
-    # Single stage -------------------------------------------------------
+    # Single stage. --step implies --mode steps: explain, then run with no prompt.
     if a.step:
-        if confirm(a.step, auto_yes=a.yes or a.mode != "interactive"):
+        if confirm(a.step, auto_yes=True):
             job_run_id = run_one(
                 a.step,
                 start=start,
