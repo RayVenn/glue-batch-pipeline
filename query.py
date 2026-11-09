@@ -17,7 +17,7 @@ DEMO_QUERIES = {
         WITH raw AS (SELECT dt AS trade_date, count(*) AS raw_rows FROM {RAW}.trades GROUP BY dt),
              cln AS (SELECT trade_date, count(*) AS clean_rows FROM {CUR}.trades_clean GROUP BY trade_date),
              rej AS (SELECT trade_date, count(*) AS rejected_rows FROM {CUR}.trades_rejected GROUP BY trade_date)
-        SELECT raw.trade_date, raw_rows, clean_rows, rejected_rows,
+        SELECT trade_date, raw_rows, clean_rows, rejected_rows,
                raw_rows - clean_rows - rejected_rows AS diff
         FROM raw LEFT JOIN cln USING (trade_date) LEFT JOIN rej USING (trade_date)
         ORDER BY 1""",
